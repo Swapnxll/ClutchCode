@@ -12,6 +12,7 @@ export const UserContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   async function loginUser(email, password, navigate) {
+    setBtnLoading(true);
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_SERVER}/api/user/login`,
@@ -56,6 +57,24 @@ export const UserContextProvider = ({ children }) => {
     fetchUser();
   }, []);
 
+  async function registerUser(name, email, password, navigate) {
+    setBtnLoading(true);
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_SERVER}/api/user/register`,
+        { name, email, password }
+      );
+
+      toast.success(data.message);
+      localStorage.setItem("activationToken", data.activationToken);
+      setBtnLoading(false);
+      navigate("/verify");
+    } catch (error) {
+      setBtnLoading(false);
+      toast.error(error.response.data.message);
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -67,6 +86,7 @@ export const UserContextProvider = ({ children }) => {
         btnLoading,
         fetchUser,
         loading,
+        registerUser,
       }}
     >
       {children}
