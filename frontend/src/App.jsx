@@ -11,35 +11,43 @@ import Account from "./pages/Account";
 import { UserData } from "./context/UserContext";
 import Test from "./pages/test";
 import Sheet from "./pages/Sheet";
+import Loading from "./components/Loading";
 
 const App = () => {
-  const { isAuth, user } = UserData();
+  const { isAuth, user, loading } = UserData();
   return (
     <>
-      <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
-          <Header isAuth={isAuth} />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/test" element={<Test />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/sheet" element={<Sheet />} />
-              <Route path="/login" element={isAuth ? <Home /> : <Login />} />
-              <Route
-                path="/register"
-                element={isAuth ? <Home /> : <Register />}
-              />
-              <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
-              <Route
-                path="/account"
-                element={isAuth ? <Account user={user} /> : <Login />}
-              />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      {loading ? (
+        <Loading />
+      ) : (
+        <BrowserRouter>
+          <div className="min-h-screen flex flex-col">
+            <Header isAuth={isAuth} />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/test" element={<Test />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/sheet" element={<Sheet />} />
+                <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+                <Route
+                  path="/register"
+                  element={isAuth ? <Home /> : <Register />}
+                />
+                <Route
+                  path="/verify"
+                  element={isAuth ? <Home /> : <Verify />}
+                />
+                <Route
+                  path="/account"
+                  element={isAuth ? <Account user={user} /> : <Login />}
+                />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      )}
     </>
   );
 };
