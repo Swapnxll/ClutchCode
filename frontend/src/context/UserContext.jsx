@@ -75,6 +75,28 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
+  async function verifyOtp(otp, navigate) {
+    setBtnLoading(true);
+    const activationToken = localStorage.getItem("activationToken");
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_SERVER}/api/user/verify`,
+        {
+          otp,
+          activationToken,
+        }
+      );
+
+      toast.success(data.message);
+      navigate("/login");
+      localStorage.clear();
+      setBtnLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setBtnLoading(false);
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -87,6 +109,7 @@ export const UserContextProvider = ({ children }) => {
         fetchUser,
         loading,
         registerUser,
+        verifyOtp,
       }}
     >
       {children}
