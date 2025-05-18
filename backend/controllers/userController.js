@@ -100,10 +100,16 @@ export const loginUser = TryCatch(async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.Jwt_Sec, {
     expiresIn: "15d",
   });
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax", // or "none" + secure:true if cross-site cookie needed
+    maxAge: 15 * 24 * 60 * 60 * 1000,
+  });
 
   res.json({
     message: `Welcome back ${user.name}`,
-    token,
+
     user,
   });
 });

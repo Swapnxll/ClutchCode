@@ -1,0 +1,64 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Header = ({ isAuth }) => {
+  return (
+    <>
+      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-[hsl(240,5%,12%)]/90 backdrop-blur-md border-b border-gray-800">
+        <div className="text-xl font-semibold text-gray-100">Logo</div>
+        <nav className="flex items-center space-x-4 text-gray-300 text-lg font-medium">
+          <Link
+            to="/"
+            className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            Home
+          </Link>
+          <Link
+            to="/courses"
+            className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            Courses
+          </Link>
+          <Link
+            to="/sheet"
+            className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            Sheet
+          </Link>
+          <Link
+            to="/about"
+            className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            About
+          </Link>
+
+          {isAuth ? (
+            <Link
+              to="/account"
+              className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              Account
+            </Link>
+          ) : (
+            <div className="flex items-center space-x-2 ml-2">
+              <Link
+                to="/login"
+                className="px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className=" text-white px-4 py-1.5 rounded-md hover:bg-blue-700 transition-colors duration-200"
+              >
+                Register
+              </Link>
+            </div>
+          )}
+        </nav>
+      </header>
+    </>
+  );
+};
+
+export default Header;
