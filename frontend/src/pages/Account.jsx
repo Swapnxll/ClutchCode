@@ -20,6 +20,7 @@ const Account = ({ user }) => {
       setIsAuth(false);
       setUser([]);
       toast.success("Logged out");
+      navigate("/login");
     } catch (err) {
       console.error(err);
       toast.error("Logout failed");
