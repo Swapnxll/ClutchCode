@@ -9,6 +9,7 @@ import { User } from "../models/userModel.js";
 export const createCourse = TryCatch(async (req, res) => {
   const { title, description, category, createdBy, duration, price, image } =
     req.body;
+  image = req.file;
 
   await Courses.create({
     title,
