@@ -1,6 +1,7 @@
 import React from "react";
 import { CourseData } from "../context/CourseContext";
 import CourseCard from "../components/CourseCard";
+import { UserData } from "../context/UserContext";
 
 const Courses = () => {
   const { courses } = CourseData();

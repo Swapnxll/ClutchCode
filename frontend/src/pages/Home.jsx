@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   const testimonials = [
     {
       text: "This platform helped me master DSA(Dosa-Sambhar Algorithm) in record time!",
@@ -35,7 +37,6 @@ const Home = () => {
   return (
     <>
       <>
-        <div>hello</div>
         {/* Hero Section */}
         <section className="py-20 text-center text-white">
           <div className="container mx-auto px-5 max-w-4xl">
@@ -54,12 +55,14 @@ const Home = () => {
               >
                 Start Learning
               </a>
-              <a
-                href="#"
+              <button
+                onClick={() => {
+                  navigate("/courses");
+                }}
                 className="border border-gray-600 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded"
               >
                 Explore Courses
-              </a>
+              </button>
             </div>
           </div>
         </section>
