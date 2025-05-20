@@ -4,10 +4,12 @@ import { UserData } from "../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import image from "../assets/image.png";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const CourseDescription = ({ user }) => {
   const { fetchUser } = UserData();
-  const { course, fetchCourse } = CourseData();
+  const { course, fetchCourse, fetchCourses, fetchMyCourse } = CourseData();
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
@@ -15,6 +17,75 @@ const CourseDescription = ({ user }) => {
   useEffect(() => {
     fetchCourse(params.id);
   }, []);
+
+  const checkoutHandler = async () => {
+    setLoading(true);
+
+    try {
+      // Step 1: Create Order
+      const {
+        data: { order },
+      } = await axios.post(
+        `${import.meta.env.VITE_SERVER}/api/course/checkout/${params.id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      const options = {
+        key: "rzp_test_VECqukFblJCm5H", // Razorpay key
+        amount: order.amount, // Ensure it's the correct field (e.g., order.amount)
+        currency: "INR",
+        name: "Code Clutch",
+        description: "CHOCO",
+        order_id: order.id,
+
+        handler: async function (response) {
+          const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+            response;
+
+          try {
+            // Step 2: Verify payment
+            const { data } = await axios.post(
+              `${import.meta.env.VITE_SERVER}/api/verification/${params.id}`,
+              {
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+              },
+              {
+                withCredentials: true,
+              }
+            );
+
+            await fetchUser();
+            await fetchCourses();
+            await fetchMyCourse();
+
+            toast.success(data.message);
+            setLoading(false);
+            navigate(`/payment-success/${razorpay_payment_id}`);
+          } catch (error) {
+            toast.error(
+              error?.response?.data?.message || "Verification failed"
+            );
+            setLoading(false);
+          }
+        },
+
+        theme: {
+          color: "#3b82f6",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Order creation failed");
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -54,7 +125,10 @@ const CourseDescription = ({ user }) => {
                   <p className="mb-6 font-semibold">
                     Let's get started with course At ₹{course.price}
                   </p>
-                  <button className="common-btn bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-md transition">
+                  <button
+                    onClick={checkoutHandler}
+                    className="common-btn bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-md transition"
+                  >
                     Buy Now
                   </button>
                 </>
@@ -68,3 +142,11 @@ const CourseDescription = ({ user }) => {
 };
 
 export default CourseDescription;
+
+// Razorpay intentionally sends a signature (razorpay_signature) that you can independently re-create using their secret key. That’s how they prove the response is authentic and untampered.
+
+// Because both sides use the same secret key, only Razorpay and your server can generate the same hash. So:
+
+// ✅ If it matches → the response is authentic.
+
+// ❌ If it doesn't → someone tampered with the data or used a wrong key.

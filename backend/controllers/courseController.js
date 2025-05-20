@@ -116,11 +116,11 @@ export const paymentVerification = TryCatch(async (req, res) => {
 
     user.subscription.push(course._id); //adding courese to subscription array
 
-    await Progress.create({
-      course: course._id,
-      completedLectures: [],
-      user: req.user._id,
-    });
+    // await Progress.create({
+    //   course: course._id,
+    //   completedLectures: [],
+    //   user: req.user._id,
+    // });
 
     await user.save();
 

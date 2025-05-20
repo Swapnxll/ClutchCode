@@ -13,6 +13,7 @@ import Test from "./pages/Test";
 import Sheet from "./pages/Sheet";
 import Loading from "./components/Loading";
 import CourseDescription from "./pages/CourseDescription";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 const App = () => {
   const { isAuth, user, loading } = UserData();
@@ -48,6 +49,10 @@ const App = () => {
                   element={
                     isAuth ? <CourseDescription user={user} /> : <Login />
                   }
+                />
+                <Route
+                  path="/payment-success/:id"
+                  element={isAuth ? <PaymentSuccess user={user} /> : <Login />}
                 />
               </Routes>
             </main>
