@@ -14,7 +14,9 @@ import Sheet from "./pages/Sheet";
 import Loading from "./components/Loading";
 import CourseDescription from "./pages/CourseDescription";
 import PaymentSuccess from "./pages/PaymentSuccess";
-
+import Dashboard from "./pages/Dashboard";
+import CourseStudy from "./pages/CourseStudy";
+import Lecture from "./pages/Lecture";
 const App = () => {
   const { isAuth, user, loading } = UserData();
   return (
@@ -28,7 +30,7 @@ const App = () => {
             <main className="flex-grow">
               <Routes>
                 <Route path="/test" element={<Test />} />
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home user={user} />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/sheet" element={<Sheet />} />
                 <Route path="/login" element={isAuth ? <Home /> : <Login />} />
@@ -53,6 +55,18 @@ const App = () => {
                 <Route
                   path="/payment-success/:id"
                   element={isAuth ? <PaymentSuccess user={user} /> : <Login />}
+                />
+                <Route
+                  path="/:id/dashboard"
+                  element={isAuth ? <Dashboard user={user} /> : <Login />}
+                />
+                <Route
+                  path="/course/study/:id"
+                  element={isAuth ? <CourseStudy user={user} /> : <Login />}
+                />
+                <Route
+                  path="/lectures/:id"
+                  element={isAuth ? <Lecture user={user} /> : <Login />}
                 />
               </Routes>
             </main>

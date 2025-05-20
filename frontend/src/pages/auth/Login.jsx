@@ -3,17 +3,18 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { UserData } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { CourseData } from "../../context/CourseContext";
 const Login = () => {
   const navigate = useNavigate();
   const { btnLoading, loginUser } = UserData();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { fetchMyCourse } = CourseData();
   const [showPassword, setShowPassword] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await loginUser(email, password, navigate);
+    await loginUser(email, password, navigate, fetchMyCourse);
   };
 
   return (

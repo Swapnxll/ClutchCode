@@ -5,6 +5,7 @@ import { connectDb } from "./config/db.js";
 import userRoute from "./routes/userRoute.js";
 import courseRoute from "./routes/courseRoute.js";
 import adminRoute from "./routes/adminRoute.js";
+import morgan from "morgan";
 import Razorpay from "razorpay";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -20,10 +21,11 @@ export const instance = new Razorpay({
 
 const PORT = process.env.PORT || 8081;
 const app = express();
+app.use(morgan("dev"));
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend origin
+    origin: `${process.env.CLIENT}`, // your frontend origin
     credentials: true, // allow cookies to be sent
   })
 );
@@ -54,11 +56,10 @@ app.post("/logout", (req, res) => {
 
 app.post("/upload", uploadFiles, async (req, res) => {
   // console.log(req.cloudinaryUrl);
-  console.log(req.file.path);
+
   const localFilePath = req.file?.path;
 
   const cloudResult = await uploadToCloudinary(localFilePath);
-  console.log(cloudResult.secure_url);
 });
 
 app.listen(PORT, () => {

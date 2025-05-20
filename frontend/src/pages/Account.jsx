@@ -47,7 +47,7 @@ const Account = ({ user }) => {
               <div className="flex gap-4 pt-4">
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl"
-                  onClick={() => navigate("/dashboard")} // Add your navigation logic
+                  onClick={() => navigate(`/${user._id}/dashboard`)} // Add your navigation logic
                 >
                   Dashboard
                 </button>

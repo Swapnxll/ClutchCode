@@ -11,7 +11,7 @@ export const UserContextProvider = ({ children }) => {
   const [btnLoading, setBtnLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  async function loginUser(email, password, navigate) {
+  async function loginUser(email, password, navigate, fetchMyCourse) {
     setBtnLoading(true);
     try {
       const { data } = await axios.post(
@@ -24,7 +24,7 @@ export const UserContextProvider = ({ children }) => {
       setIsAuth(true);
       setBtnLoading(false);
       navigate("/");
-
+      fetchMyCourse();
       toast.success(data.message);
     } catch (error) {
       setBtnLoading(false);

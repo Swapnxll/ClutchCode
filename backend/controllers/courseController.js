@@ -53,7 +53,6 @@ export const fetchLecture = TryCatch(async (req, res) => {
     return res.status(400).json({
       message: "You have not subscribed to this course",
     });
-  console.log(lecture);
 
   res.json({ lecture });
 });

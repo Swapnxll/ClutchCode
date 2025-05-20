@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ user }) => {
   const navigate = useNavigate();
   const testimonials = [
     {
@@ -49,12 +49,14 @@ const Home = () => {
               challenges.
             </p>
             <div className="flex justify-center space-x-4">
-              <a
-                href="#"
+              <button
+                onClick={() =>
+                  user ? navigate(`${user._id}/dashboard`) : navigate("/")
+                }
                 className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded"
               >
                 Start Learning
-              </a>
+              </button>
               <button
                 onClick={() => {
                   navigate("/courses");
