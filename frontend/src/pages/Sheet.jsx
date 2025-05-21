@@ -1,37 +1,75 @@
-import React, { useState } from "react";
-import QuestionCard from "../components/QuestionCard"; // Import your QuestionCard component
-import questionsData from "../assets/Q"; // Import your JSON data
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import QuestionCard from "../components/QuestionCard"; // Your existing QuestionCard component
+import questionsData from "../assets/Q"; // Your questions JSON
 
 const Sheet = () => {
   const [questions, setQuestions] = useState(questionsData);
   const [difficultyFilter, setDifficultyFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [questionProgress, setQuestionProgress] = useState(Array(150).fill(0)); // default 0 for all questions
 
-  // Toggle the checked status of a question by ID
-  const toggleQuestion = (id) => {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((q) =>
-        q.id === id ? { ...q, checked: !q.checked } : q
-      )
-    );
+  // Fetch progress from backend on mount
+  useEffect(() => {
+    async function fetchProgress() {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_SERVER}/api/user/question`,
+          { withCredentials: true }
+        );
+        if (res.data?.questionProgress) {
+          setQuestionProgress(res.data.questionProgress);
+        }
+      } catch (error) {
+        console.error("Error loading question progress:", error);
+      }
+    }
+
+    fetchProgress();
+  }, []);
+
+  // Toggle checked state and update backend
+  const toggleQuestion = async (id) => {
+    const idx = id - 1; // adjust for zero-based index
+
+    if (idx < 0 || idx >= questionProgress.length) return;
+
+    // Optimistically update UI
+    const newProgress = [...questionProgress];
+    newProgress[idx] = newProgress[idx] === 1 ? 0 : 1;
+    setQuestionProgress(newProgress);
+
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_SERVER}/api/user/question/${idx}`,
+        { checked: newProgress[idx] === 1 },
+        { withCredentials: true }
+      );
+    } catch (error) {
+      console.error("Failed to update progress:", error);
+      // Revert UI change if API call fails
+      newProgress[idx] = newProgress[idx] === 1 ? 0 : 1;
+      setQuestionProgress(newProgress);
+    }
   };
 
-  // Get unique categories for the dropdown (ensure "All" is first and no duplicates)
+  // Unique categories for filter dropdown
   const categories = [
     "All",
     ...Array.from(new Set(questionsData.map((q) => q.category))),
   ];
 
-  // Filtered questions based on difficulty and category
+  // Filter questions based on selected filters
   const filteredQuestions = questions.filter((q) => {
-    const isDifficultyMatch =
+    const difficultyMatch =
       difficultyFilter === "All" ||
       q.difficulty.toLowerCase() === difficultyFilter.toLowerCase();
-    const isCategoryMatch =
+    const categoryMatch =
       categoryFilter === "All" ||
       q.category.toLowerCase() === categoryFilter.toLowerCase();
-    return isDifficultyMatch && isCategoryMatch;
+    return difficultyMatch && categoryMatch;
   });
+
   return (
     <div>
       <div className="max-w-4xl mx-auto p-6">
@@ -88,7 +126,7 @@ const Sheet = () => {
                 link={question.link}
                 difficulty={question.difficulty}
                 category={question.category}
-                checked={question.checked || false}
+                checked={questionProgress[question.id - 1] === 1}
                 onToggle={() => toggleQuestion(question.id)}
               />
             ))

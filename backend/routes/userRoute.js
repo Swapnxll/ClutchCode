@@ -3,6 +3,8 @@ import {
   loginUser,
   myProfile,
   register,
+  sheet,
+  toggleQ,
   verifyUser,
 } from "../controllers/userController.js";
 import { isAuth } from "../middlewares/isAuth.js";
@@ -14,4 +16,6 @@ router.post("/user/verify", verifyUser);
 
 router.post("/user/login", loginUser);
 router.post("/user/profile", isAuth, myProfile);
+router.get("/user/question", isAuth, sheet);
+router.put("/user/question/:id", isAuth, toggleQ);
 export default router;

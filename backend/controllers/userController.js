@@ -127,8 +127,8 @@ export const sheet = TryCatch(async (req, res) => {
 
 export const toggleQ = TryCatch(async (req, res) => {
   try {
-    const { index } = req.params;
-    const idx = parseInt(index);
+    console.log(req.params.id);
+    const idx = parseInt(req.params.id, 10);
 
     if (idx < 0 || idx >= 150) {
       return res.status(400).json({ message: "Invalid question index" });
@@ -137,7 +137,7 @@ export const toggleQ = TryCatch(async (req, res) => {
     const user = await User.findById(req.user.id);
 
     // Toggle the value: 0 → 1, 1 → 0
-    user.questionProgress[idx] = user.questionProgress[idx] === 1 ? 0 : 1;
+    user.questionProgress[idx] = user.questionProgress[idx] == 1 ? 0 : 1;
 
     await user.save();
 

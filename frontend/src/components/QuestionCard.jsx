@@ -10,7 +10,6 @@ const QuestionCard = ({
   checked,
   onToggle,
 }) => {
-  // Difficulty color mapping
   const difficultyColors = {
     easy: "text-green-500",
     medium: "text-yellow-500",
@@ -19,25 +18,25 @@ const QuestionCard = ({
 
   return (
     <div className="flex items-center justify-between p-4 bg-neutral-900 border border-neutral-700 hover:border-blue-500 hover:bg-neutral-800 rounded transition-all duration-200 mb-3 shadow-sm">
-      {/* Checkbox */}
+      {/* Checkbox button */}
       <button
         onClick={onToggle}
         className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${
           checked ? "bg-blue-500 border-blue-500" : "border-neutral-500"
         }`}
+        aria-label={`Toggle question ${id}`}
       >
         {checked && <FaCheck className="text-white text-xs" />}
       </button>
 
-      {/* Question Name */}
+      {/* Question title */}
       <div className="flex-1 ml-4">
         <p className="text-base font-medium text-white">
-          {id}.<span> </span>
-          {title}
+          {id}. <span>{title}</span>
         </p>
       </div>
 
-      {/* External Link */}
+      {/* External link */}
       <a
         href={link}
         target="_blank"
@@ -51,7 +50,7 @@ const QuestionCard = ({
       {/* Difficulty */}
       <span
         className={`text-sm font-medium capitalize mr-4 ${
-          difficultyColors[difficulty] || "text-neutral-400"
+          difficultyColors[difficulty.toLowerCase()] || "text-neutral-400"
         }`}
       >
         {difficulty}
