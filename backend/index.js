@@ -46,7 +46,7 @@ app.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax", // Or 'none' if using cross-site requests with secure: true
+    sameSite: "none", // Or 'none' if using cross-site requests with secure: true
   });
 
   res.status(200).json({ message: "Logged out successfully" });
