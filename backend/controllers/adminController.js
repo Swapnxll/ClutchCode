@@ -38,13 +38,14 @@ export const addLectures = TryCatch(async (req, res) => {
     });
 
   const { title, description } = req.body;
+  const vidresult = await uploadToCloudinary(req.file?.path);
 
-  // const file = req.file;
+  const video = vidresult.secure_url;
 
   const lecture = await Lecture.create({
     title,
     description,
-    // video: file?.path,
+    video,
     course: course._id,
   });
 
@@ -57,9 +58,7 @@ export const addLectures = TryCatch(async (req, res) => {
 export const deleteLecture = TryCatch(async (req, res) => {
   const lecture = await Lecture.findById(req.params.id);
 
-  rm(lecture.video, () => {
-    console.log("Video deleted");
-  });
+  rm(lecture.video, () => {});
 
   await lecture.deleteOne();
 

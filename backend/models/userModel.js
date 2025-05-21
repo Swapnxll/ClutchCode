@@ -25,6 +25,10 @@ const schema = new mongoose.Schema(
         ref: "Courses",
       },
     ],
+    questionProgress: {
+      type: [Number],
+      default: Array(150).fill(0), // ⬅️ Each user starts with all questions unchecked
+    },
   },
   { timestamps: true } // ⏱ Adds createdAt and updatedAt
 );

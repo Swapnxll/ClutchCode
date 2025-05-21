@@ -119,3 +119,34 @@ export const myProfile = TryCatch(async (req, res) => {
 
   res.json({ user });
 });
+
+export const sheet = TryCatch(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  res.status(200).json({ questionProgress: user.questionProgress });
+});
+
+export const toggleQ = TryCatch(async (req, res) => {
+  try {
+    const { index } = req.params;
+    const idx = parseInt(index);
+
+    if (idx < 0 || idx >= 150) {
+      return res.status(400).json({ message: "Invalid question index" });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    // Toggle the value: 0 → 1, 1 → 0
+    user.questionProgress[idx] = user.questionProgress[idx] === 1 ? 0 : 1;
+
+    await user.save();
+
+    res.status(200).json({
+      message: `Question at index ${idx} toggled successfully`,
+      updatedValue: user.questionProgress[idx],
+      questionProgress: user.questionProgress,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});

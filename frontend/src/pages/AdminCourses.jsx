@@ -56,7 +56,7 @@ const AdminCourses = () => {
       // key must match backend multer config
 
       const res = await axios.post(
-        "http://localhost:8080/api/course/new",
+        `${import.meta.env.VITE_SERVER}/api/course/new`,
         data,
         {
           withCredentials: true,
