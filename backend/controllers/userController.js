@@ -127,7 +127,6 @@ export const sheet = TryCatch(async (req, res) => {
 
 export const toggleQ = TryCatch(async (req, res) => {
   try {
-    console.log(req.params.id);
     const idx = parseInt(req.params.id, 10);
 
     if (idx < 0 || idx >= 150) {

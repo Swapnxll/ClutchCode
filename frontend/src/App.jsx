@@ -9,7 +9,7 @@ import Verify from "./pages/auth/Verify";
 import Footer from "./components/Footer";
 import Account from "./pages/Account";
 import { UserData } from "./context/UserContext";
-import Test from "./pages/Test";
+
 import Sheet from "./pages/Sheet";
 import Loading from "./components/Loading";
 import CourseDescription from "./pages/CourseDescription";
@@ -20,6 +20,7 @@ import Lecture from "./pages/Lecture";
 import Admin from "./pages/Admin";
 import AdminCourses from "./pages/AdminCourses";
 import CourseEdit from "./pages/CourseEdit";
+import About from "./pages/About";
 
 const App = () => {
   const { isAuth, user, loading } = UserData();
@@ -33,10 +34,10 @@ const App = () => {
             <Header isAuth={isAuth} />
             <main className="flex-grow">
               <Routes>
-                <Route path="/test" element={<Test />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/" element={<Home user={user} />} />
                 <Route path="/courses" element={<Courses />} />
-                <Route path="/sheet" element={<Sheet />} />
+                <Route path="/sheet" element={isAuth ? <Sheet /> : <Login />} />
                 <Route path="/login" element={isAuth ? <Home /> : <Login />} />
                 <Route
                   path="/register"
@@ -75,11 +76,7 @@ const App = () => {
                 <Route
                   path="/admin/dashboard"
                   element={
-                    isAuth && user.role == "admin" ? (
-                      <Admin user={user} />
-                    ) : (
-                      <Home />
-                    )
+                    isAuth && user.role == "admin" ? <Admin /> : <Home />
                   }
                 />
                 <Route

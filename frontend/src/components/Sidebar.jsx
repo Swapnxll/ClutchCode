@@ -5,11 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
-  const links = [
-    { name: "Create Course", path: "/admin/create" },
-    { name: "Edit Course", path: "/admin/edit" },
-    { name: "User Details", path: "/admin/users" },
-  ];
+  const links = [{ name: "Create Course", path: "/admin/create" }];
 
   return (
     <div

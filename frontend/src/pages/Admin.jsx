@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useEffect } from "react";
 
-const Admin = ({ user }) => {
+const Admin = () => {
   const { courses, fetchCourses } = CourseData();
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const Admin = ({ user }) => {
     if (!id) return;
 
     try {
-      await axios.delete(`http://localhost:8080/api/course/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_SERVER}/api/course/${id}`, {
         withCredentials: true,
       });
       await fetchCourses();
@@ -30,13 +30,13 @@ const Admin = ({ user }) => {
   // }, [handleDelete]);
 
   return (
-    <div className="flex bg-neutral-900 min-h-screen text-white">
+    <div className="flex min-h-screen text-white">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1 p-6 md:p-8 space-y-6">
-        <h1 className="text-3xl font-bold mb-4 text-center text-white">
+        <h1 className="text-3xl font-bold mb-4 text-center  text-blue-500">
           All Courses
         </h1>
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../context/UserContext";
-import image from "../assets/image.png";
 
 const CourseCard = ({ course }) => {
   const navigate = useNavigate();
@@ -9,12 +8,16 @@ const CourseCard = ({ course }) => {
 
   return (
     <div className="bg-gray-800 rounded-lg overflow-hidden hover:shadow-lg transition-transform hover:-translate-y-1 flex flex-col justify-between w-full max-w-sm mx-auto">
-      <img src={image} alt="Course" className="w-full h-40 object-cover" />
+      <img
+        src={course.image}
+        alt="Course"
+        className="w-full h-40 object-cover"
+      />
 
       <div className="p-4 flex flex-col flex-grow justify-between">
         <div>
           {/* Title and Duration */}
-          <div className="flex items-center justify-between mb-2">
+          <div className=" items-center justify-between mb-2">
             <h3 className="text-lg font-semibold text-white truncate">
               {course.title}
             </h3>

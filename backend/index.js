@@ -9,9 +9,7 @@ import morgan from "morgan";
 import Razorpay from "razorpay";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { uploadFiles } from "./middlewares/multer.js";
 
-import { uploadToCloudinary } from "./middlewares/isCloud.js";
 dotenv.config();
 
 export const instance = new Razorpay({
@@ -52,15 +50,6 @@ app.post("/logout", (req, res) => {
   });
 
   res.status(200).json({ message: "Logged out successfully" });
-});
-
-app.post("/upload", uploadFiles, async (req, res) => {
-  // console.log(req.cloudinaryUrl);
-
-  const localFilePath = req.file?.path;
-
-  const cloudResult = await uploadToCloudinary(localFilePath);
-  console.log(cloudResult);
 });
 
 app.listen(PORT, () => {

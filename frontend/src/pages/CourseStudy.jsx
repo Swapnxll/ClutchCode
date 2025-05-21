@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { CourseData } from "../context/CourseContext";
-import img from "../assets/image.png";
+
 const CourseStudy = ({ user }) => {
   const params = useParams();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const CourseStudy = ({ user }) => {
       {course && (
         <div className="flex flex-col items-center gap-4 bg-gray-700 text-white p-6 rounded-lg shadow-md max-w-xl mx-auto mt-8">
           <img
-            src={img}
+            src={course.image}
             alt={course.title}
             className="w-72 h-auto rounded-lg shadow"
           />
@@ -29,7 +29,7 @@ const CourseStudy = ({ user }) => {
           <h4 className="text-base text-gray-300">{course.description}</h4>
           <h5 className="text-sm text-gray-400">By - {course.createdBy}</h5>
           <h5 className="text-sm text-gray-400">
-            Duration - {course.duration} weeks
+            Duration - {course.duration} Hours
           </h5>
           <Link
             to={`/lectures/${course._id}`}

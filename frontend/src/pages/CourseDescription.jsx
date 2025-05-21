@@ -3,7 +3,6 @@ import { CourseData } from "../context/CourseContext";
 import { UserData } from "../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
-import image from "../assets/image.png";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -97,8 +96,8 @@ const CourseDescription = ({ user }) => {
             <div className="course-description bg-gray-800 rounded-lg p-6 text-white max-w-3xl mx-auto">
               <div className="course-header flex items-center mb-6">
                 <img
-                  src={image}
-                  alt={image}
+                  src={course.image}
+                  alt={course.title}
                   className="course-image w-48 h-32 object-cover rounded-md mr-6"
                 />
                 <div className="course-info">
