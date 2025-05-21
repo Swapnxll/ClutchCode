@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex items-center mb-4 md:mb-0">
           <FaBrain className="text-blue-500 text-2xl mr-2" />
           <span className="text-xl font-semibold text-gray-100">
-            Code Clutch
+            Clutch-Code
           </span>
         </div>
 
@@ -26,7 +26,7 @@ const Footer = () => {
 
       {/* Bottom: Copyright */}
       <div className="mt-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} DSA Master. All rights reserved.
+        © {new Date().getFullYear()}. All rights reserved.
       </div>
     </footer>
   );
