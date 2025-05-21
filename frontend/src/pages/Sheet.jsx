@@ -4,7 +4,7 @@ import QuestionCard from "../components/QuestionCard"; // Your existing Question
 import questionsData from "../assets/Q"; // Your questions JSON
 
 const Sheet = () => {
-  const [questions, setQuestions] = useState(questionsData);
+  const [questions] = useState(questionsData);
   const [difficultyFilter, setDifficultyFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [questionProgress, setQuestionProgress] = useState(Array(150).fill(0)); // default 0 for all questions
@@ -112,6 +112,29 @@ const Sheet = () => {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="mb-6">
+            <label className="text-white font-semibold mb-1 block">
+              Progress:{" "}
+              {(
+                (questionProgress.filter((status) => status === 1).length /
+                  questionProgress.length) *
+                100
+              ).toFixed(1)}
+              %
+            </label>
+            <div className="w-full bg-neutral-700 rounded-full h-4 overflow-hidden">
+              <div
+                className="bg-blue-500 h-4"
+                style={{
+                  width: `${
+                    (questionProgress.filter((status) => status === 1).length /
+                      questionProgress.length) *
+                    100
+                  }%`,
+                }}
+              />
+            </div>
           </div>
         </div>
 
