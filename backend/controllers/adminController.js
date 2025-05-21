@@ -5,12 +5,15 @@ import { rm } from "fs";
 import { promisify } from "util";
 import fs from "fs";
 import { User } from "../models/userModel.js";
+import { uploadToCloudinary } from "../middlewares/isCloud.js";
 
 export const createCourse = TryCatch(async (req, res) => {
-  const { title, description, category, createdBy, duration, price, image } =
-    req.body;
-  image = req.file;
+  const { title, description, category, createdBy, duration, price } = req.body;
 
+  const result = await uploadToCloudinary(req.file?.path);
+  const image = result.secure_url;
+  console.log("image ", image);
+  console.log(title);
   await Courses.create({
     title,
     description,

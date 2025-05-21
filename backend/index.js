@@ -60,6 +60,7 @@ app.post("/upload", uploadFiles, async (req, res) => {
   const localFilePath = req.file?.path;
 
   const cloudResult = await uploadToCloudinary(localFilePath);
+  console.log(cloudResult);
 });
 
 app.listen(PORT, () => {
