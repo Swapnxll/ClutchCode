@@ -65,15 +65,17 @@ const Lecture = ({ user }) => {
               <Loading />
             ) : lecture && lecture.video ? (
               <>
-                <video
-                  src={lecture.video}
-                  controls
-                  autoPlay
-                  className="w-full rounded"
-                  controlsList="nodownload noremoteplayback"
-                  disablePictureInPicture
-                  disableRemotePlayback
-                />
+                <div className="aspect-video w-full rounded overflow-hidden bg-black">
+                  <video
+                    src={lecture.video}
+                    controls
+                    autoPlay
+                    className="w-full h-full object-contain"
+                    controlsList="nodownload noremoteplayback"
+                    disablePictureInPicture
+                    disableRemotePlayback
+                  />
+                </div>
                 <h1 className="mt-4 text-2xl font-semibold">{lecture.title}</h1>
                 <h3 className="text-gray-300 mt-2">{lecture.description}</h3>
               </>
