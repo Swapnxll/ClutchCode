@@ -30,3 +30,18 @@ It hides the real Cloudinary URL and allows tight access control, but adds laten
 🔁 Use signed URLs for general use
 🔒 Use backend proxy for sensitive videos
 💡 Combine both for optimal security and performance
+
+🔍 Explanation:
+You are proxying the video stream from Cloudinary through your own backend. This means:
+
+The frontend requests the video from your server (/api/watch/:id).
+
+Your server acts as a middleman:
+
+It checks permissions.
+
+It generates a signed, expiring URL.
+
+It fetches the video from Cloudinary.
+
+It pipes the stream to the frontend.
