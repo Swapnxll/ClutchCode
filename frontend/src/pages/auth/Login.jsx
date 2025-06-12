@@ -4,6 +4,9 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { UserData } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { CourseData } from "../../context/CourseContext";
+import { useGoogleLogin } from "@react-oauth/google";
+import { googleAuth } from "./api";
+
 const Login = () => {
   const navigate = useNavigate();
   const { btnLoading, loginUser } = UserData();
@@ -16,6 +19,28 @@ const Login = () => {
     e.preventDefault();
     await loginUser(email, password, navigate, fetchMyCourse);
   };
+
+  const responseGoogle = async (authResult) => {
+    try {
+      if (authResult["code"]) {
+        const result = await googleAuth(authResult.code);
+        if (result) {
+          window.location.href = "/";
+        }
+      } else {
+        navigate("/*");
+        throw new Error(authResult);
+      }
+    } catch (e) {
+      console.log("Error while Google Login...", e);
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
 
   return (
     <>
@@ -83,6 +108,19 @@ const Login = () => {
               className="w-full bg-blue-600 text-gray-50 font-medium rounded-md py-2.5 hover:bg-blue-700 transition-colors shadow-sm"
             >
               {btnLoading ? "please wait..." : "SignIn"}
+            </button>
+            <button
+              onClick={googleLogin}
+              disabled={btnLoading}
+              type="button"
+              className="w-full border border-gray-300 text-white-700 font-medium rounded-md py-2.5 flex items-center justify-center gap-3 hover:bg-gray-500 transition-colors shadow-sm"
+            >
+              <img
+                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              {btnLoading ? "Signing in..." : "Sign in with Google"}
             </button>
           </form>
         </div>

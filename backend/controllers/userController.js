@@ -3,6 +3,10 @@ import TryCatch from "../middlewares/trycatch.js";
 import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; // ✅ You forgot to import jwt
+import axios from "axios";
+import { oauth2Client } from "../utils/googleClient.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const register = async (req, res) => {
   try {
@@ -149,3 +153,47 @@ export const toggleQ = TryCatch(async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+
+export const googlelogin = async (req, res) => {
+  try {
+    const code = req.query.code;
+
+    const googleRes = await oauth2Client.getToken(code);
+
+    oauth2Client.setCredentials(googleRes.tokens);
+
+    const userRes = await axios.get(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+    );
+    console.log("📨 User Info Response:", userRes.data);
+
+    const { email, name } = userRes.data;
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({ name, email });
+      console.log("🆕 Created New User:", user);
+    }
+
+    console.log("token created");
+    const token = jwt.sign({ _id: user._id }, process.env.Jwt_Sec, {
+      expiresIn: "15d",
+    });
+    await res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none", // or "none" + secure:true if cross-site cookie needed
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+    });
+    console.log("token set", token);
+
+    res.json({
+      message: `Welcome back ${user.name}`,
+
+      user,
+    });
+  } catch (err) {
+    console.error("❌ Backend Google Login Error:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

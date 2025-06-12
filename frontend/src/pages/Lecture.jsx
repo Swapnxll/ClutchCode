@@ -71,7 +71,7 @@ const Lecture = ({ user }) => {
                     controls
                     autoPlay
                     className="w-full h-full object-contain"
-                    controlsList="nodownload noremoteplayback"
+                    controlsList="nodownload nofullscreen noremoteplayback"
                     disablePictureInPicture
                     disableRemotePlayback
                   />

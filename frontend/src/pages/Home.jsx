@@ -41,30 +41,28 @@ const Home = ({ user }) => {
     <>
       <>
         {/* Hero Section */}
-        <section className="py-20 text-center text-white">
-          <div className="container mx-auto px-5 max-w-4xl">
-            <h1 className="text-6xl font-bold mb-6 leading-tight">
-              Master Data Structures Algorithms & Development
+        <section className="py-20  text-center text-white">
+          <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              Master Data Structures, Algorithms & Development
             </h1>
-            <p className="text-lg text-gray-400 mb-10">
+            <p className="text-base md:text-lg text-gray-400 mb-10 px-2">
               Learn core computer science fundamentals and modern web
               development through interactive lessons, visualizations,
               real-world projects, and hands-on coding challenges.
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <button
                 onClick={() =>
                   user ? navigate(`${user._id}/dashboard`) : navigate("/")
                 }
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded w-full sm:w-auto"
               >
                 Start Learning
               </button>
               <button
-                onClick={() => {
-                  navigate("/courses");
-                }}
-                className="border border-gray-600 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded"
+                onClick={() => navigate("/courses")}
+                className="border border-gray-600 hover:bg-gray-800 text-white font-semibold px-6 py-3 rounded w-full sm:w-auto"
               >
                 Explore Courses
               </button>

@@ -93,40 +93,46 @@ const CourseDescription = ({ user }) => {
       ) : (
         <>
           {course && (
-            <div className="course-description bg-gray-800 rounded-lg p-6 text-white max-w-3xl mx-auto">
-              <div className="course-header flex items-center mb-6">
+            <div className=" rounded-xl p-6 text-white max-w-4xl mx-auto shadow-lg">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-6">
                 <img
                   src={course.image}
                   alt={course.title}
-                  className="course-image w-48 h-32 object-cover rounded-md mr-6"
+                  className="w-full md:w-48 h-32 object-cover rounded-md"
                 />
-                <div className="course-info">
-                  <h2 className="text-2xl font-bold mb-2">{course.title}</h2>
-                  <p className="mb-1">Instructor: {course.createdBy}</p>
-                  <p>Duration: {course.duration} hours</p>
+                <div className="flex-1">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">
+                    {course.title}
+                  </h2>
+                  <p className="text-sm text-gray-300 mb-1">
+                    <span className="font-medium">Instructor:</span>{" "}
+                    {course.createdBy}
+                  </p>
+                  <p className="text-sm text-gray-300">
+                    <span className="font-medium">Duration:</span>{" "}
+                    {course.duration} hours
+                  </p>
                 </div>
               </div>
 
-              <p className="mb-4">{course.description}</p>
+              <p className="text-gray-200 mb-6">{course.description}</p>
 
               {(user && user.subscription.includes(course._id)) ||
-              user.role == "admin" ? (
-                <>
-                  <button
-                    onClick={() => navigate(`/course/study/${course._id}`)}
-                    className="common-btn bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md transition"
-                  >
-                    Study
-                  </button>
-                </>
+              user.role === "admin" ? (
+                <button
+                  onClick={() => navigate(`/course/study/${course._id}`)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-md w-full md:w-auto transition"
+                >
+                  Start Studying
+                </button>
               ) : (
                 <>
-                  <p className="mb-6 font-semibold">
-                    Let's get started with course At ₹{course.price}
+                  <p className="mb-4 font-semibold text-green-400">
+                    Let's get started with this course at ₹{course.price}
                   </p>
                   <button
                     onClick={checkoutHandler}
-                    className="common-btn bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-md transition"
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-md w-full md:w-auto transition"
                   >
                     Buy Now
                   </button>

@@ -21,7 +21,7 @@ import Admin from "./pages/Admin";
 import AdminCourses from "./pages/AdminCourses";
 import CourseEdit from "./pages/CourseEdit";
 import About from "./pages/About";
-
+import Notfound from "./pages/NotFound";
 const App = () => {
   const { isAuth, user, loading } = UserData();
   return (
@@ -99,6 +99,7 @@ const App = () => {
                     )
                   }
                 />
+                <Route path="*" element={<Notfound />} />
               </Routes>
             </main>
             <Footer />

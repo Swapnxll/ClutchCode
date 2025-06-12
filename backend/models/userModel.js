@@ -13,7 +13,6 @@ const schema = new mongoose.Schema(
     },
     password: {
       type: String, // Corrected from "password" to "String"
-      required: true,
     },
     role: {
       type: String,
