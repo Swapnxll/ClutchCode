@@ -1,3 +1,47 @@
-# ClutchCode
+🎓 Clutch Code
+A full-stack web platform to access and manage video lectures, featuring a built-in DSA sheet to enhance learning and track coding progress.
 
-# Hello
+🚀 Tech Stack
+Frontend: React.js
+
+Backend: Express.js
+
+Database: MongoDB
+
+🔐 Key Features
+JWT-based authentication with OTP verification
+
+Role-based access with separate User and Admin dashboards
+
+Secure video and image uploads using Multer and Cloudinary
+
+Integrated Razorpay for seamless payment processing
+
+Built-in DSA Sheet to practice Data Structures & Algorithms
+
+How can we make videos more protective 
+
+Proxying video via your backend is secure but less efficient.
+It hides the real Cloudinary URL and allows tight access control, but adds latency and server load.
+
+✅ Best for premium/private LMS content
+❌ Not ideal for public/free content
+
+🔁 Use signed URLs for general use
+🔒 Use backend proxy for sensitive videos
+💡 Combine both for optimal security and performance
+
+🔍 Explanation:
+You are proxying the video stream from Cloudinary through your own backend. This means:
+
+The frontend requests the video from your server (/api/watch/:id).
+
+Your server acts as a middleman:
+
+It checks permissions.
+
+It generates a signed, expiring URL.
+
+It fetches the video from Cloudinary.
+
+It pipes the stream to the frontend.
