@@ -29,9 +29,9 @@ const Account = ({ user }) => {
   return (
     <div>
       {user && (
-        <div className="min-h-screen px-6 py-10 bg-neutral-950 text-white">
+        <div className="min-h-screen px-6 py-10  text-white">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6">Account Details</h1>
+            <h1 className="text-3xl  font-bold mb-6">Account Details</h1>
 
             <div className="bg-neutral-900 p-6 rounded-xl shadow-md space-y-4">
               <div>

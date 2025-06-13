@@ -22,6 +22,7 @@ import AdminCourses from "./pages/AdminCourses";
 import CourseEdit from "./pages/CourseEdit";
 import About from "./pages/About";
 import Notfound from "./pages/NotFound";
+import VantaBackground from "./components/VantaBackground";
 const App = () => {
   const { isAuth, user, loading } = UserData();
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Loading />
       ) : (
         <BrowserRouter>
+          <VantaBackground />
           <div className="min-h-screen flex flex-col">
             <Header isAuth={isAuth} />
             <main className="flex-grow">

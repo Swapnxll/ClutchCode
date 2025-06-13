@@ -90,7 +90,7 @@ const Home = ({ user }) => {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-16 px-5 bg-[hsl(240,5%,15%)] overflow-hidden">
+        <section className="py-16 px-5  overflow-hidden">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 text-center">
               What Our Students Say

@@ -17,7 +17,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center px-6 bg-[hsl(240,5%,12%)]">
+      <div className="min-h-screen flex items-center justify-center px-6 ">
         <div className="w-full max-w-sm p-8 rounded-lg shadow-xl bg-[hsl(240,4%,22%)]">
           <h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">
             Create your account

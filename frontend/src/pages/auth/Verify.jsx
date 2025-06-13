@@ -12,10 +12,7 @@ const Verify = () => {
   };
   return (
     <>
-      <div
-        className="min-h-screen flex items-center justify-center px-6"
-        style={{ backgroundColor: "hsl(240, 5%, 12%)" }}
-      >
+      <div className="min-h-screen flex items-center justify-center px-6">
         <div
           className="rounded-lg shadow-xl w-full max-w-sm p-8"
           style={{ backgroundColor: "hsl(240, 4%, 22%)" }}

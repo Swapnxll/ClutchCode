@@ -4,7 +4,7 @@ const PaymentSuccess = ({ user }) => {
   const params = useParams();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       {user ? (
         <div className="bg-gray-800 text-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
           <h2 className="text-3xl font-bold mb-4">Payment Successful</h2>

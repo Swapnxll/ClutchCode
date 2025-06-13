@@ -9,7 +9,7 @@ import {
 
 const About = () => {
   return (
-    <div className="max-w-5xl mx-auto p-6 text-white relative bg-gray-900 rounded-lg shadow-lg">
+    <div className="max-w-5xl mx-auto p-6 text-white relative  rounded-lg shadow-lg">
       {/* Glow removed, so no background blur div */}
 
       <div className="relative z-10">
