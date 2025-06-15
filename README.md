@@ -19,7 +19,7 @@ Integrated Razorpay for seamless payment processing
 
 Built-in DSA Sheet to practice Data Structures & Algorithms
 
-How can we make videos more protective 
+How can we make videos more protective
 
 Proxying video via your backend is secure but less efficient.
 It hides the real Cloudinary URL and allows tight access control, but adds latency and server load.
@@ -45,3 +45,5 @@ It generates a signed, expiring URL.
 It fetches the video from Cloudinary.
 
 It pipes the stream to the frontend.
+
+## HLS VIDEO STREAMING
