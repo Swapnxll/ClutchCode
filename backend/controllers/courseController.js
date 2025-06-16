@@ -5,6 +5,9 @@ import { Lecture } from "../models/lectureModel.js";
 import { User } from "../models/userModel.js";
 import crypto from "crypto";
 import { Payment } from "../models/paymentModel.js";
+import express from "express";
+import https from "https";
+import { URL } from "url";
 // import { Progress } from "../models/Progress.js";
 import dotenv from "dotenv";
 
@@ -131,6 +134,42 @@ export const paymentVerification = TryCatch(async (req, res) => {
       message: "Payment Failed",
     });
   }
+});
+
+export const stream = TryCatch(async (req, res) => {
+  const lecture = await Lecture.findById(req.params.id);
+
+  if (!lecture || !lecture.video) {
+    return res
+      .status(404)
+      .json({ message: "Lecture not found or missing video URL" });
+  }
+  var CLOUDINARY_URL = lecture.video;
+
+  const range = req.headers.range;
+  if (!range) {
+    return res.status(400).send("You're not authorized");
+  }
+
+  const cloudUrl = new URL(CLOUDINARY_URL);
+  const options = {
+    hostname: cloudUrl.hostname,
+    path: cloudUrl.pathname + cloudUrl.search,
+    headers: { Range: range },
+  };
+
+  https
+    .get(options, (cloudRes) => {
+      if (cloudRes.statusCode === 404) {
+        return res.status(404).send("video not found");
+      }
+
+      res.writeHead(cloudRes.statusCode, cloudRes.headers);
+      cloudRes.pipe(res);
+    })
+    .on("error", (err) => {
+      return res.status(500).send("Error streaming video");
+    });
 });
 
 // export const addProgress = TryCatch(async (req, res) => {

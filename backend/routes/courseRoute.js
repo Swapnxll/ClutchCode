@@ -9,6 +9,7 @@ import {
   getMyCourses,
   checkout,
   paymentVerification,
+  stream,
 } from "../controllers/courseController.js";
 import { isAuth } from "../middlewares/isAuth.js";
 
@@ -21,6 +22,7 @@ router.get("/lecture/:id", isAuth, fetchLecture);
 router.get("/mycourse", isAuth, getMyCourses);
 router.post("/course/checkout/:id", isAuth, checkout);
 router.post("/verification/:id", isAuth, paymentVerification);
+router.get("/stream/:id", stream);
 
 const CLOUDINARY_URL =
   "https://res.cloudinary.com/do48h78id/video/upload/v1747860052/gofkel6x9dugpzt6snvc.mp4";

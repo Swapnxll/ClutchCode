@@ -13,6 +13,10 @@ const Lecture = ({ user }) => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const videoStreamUrl = `${import.meta.env.VITE_SERVER}/api/stream/${
+    lecture._id
+  }`;
+
   useEffect(() => {
     fetchLectures();
   }, []);
@@ -67,7 +71,7 @@ const Lecture = ({ user }) => {
               <>
                 <div className="aspect-video w-full rounded overflow-hidden bg-black">
                   <video
-                    src={lecture.video}
+                    src={videoStreamUrl}
                     controls
                     autoPlay
                     className="w-full h-full object-contain"
