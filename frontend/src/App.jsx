@@ -23,6 +23,7 @@ import CourseEdit from "./pages/CourseEdit";
 import About from "./pages/About";
 import Notfound from "./pages/NotFound";
 import VantaBackground from "./components/VantaBackground";
+import Demo from "./pages/Demo";
 const App = () => {
   const { isAuth, user, loading } = UserData();
   return (
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/sheet" element={isAuth ? <Sheet /> : <Login />} />
                 <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+                <Route path="/demo" element={<Demo />} />
                 <Route
                   path="/register"
                   element={isAuth ? <Home /> : <Register />}

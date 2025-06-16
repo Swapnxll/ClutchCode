@@ -77,6 +77,12 @@ const CourseCard = ({ course }) => {
               </button>
             )}
           </div>
+          <button
+            onClick={() => navigate(`/demo`)}
+            className=" bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition text-xs"
+          >
+            Demo video
+          </button>
         </div>
       </div>
     </div>
