@@ -32,7 +32,7 @@ const App = () => {
       {/* {loading ? (
         <Loading />
       ) :  */}
-      (
+
       <BrowserRouter>
         <VantaBackground />
         <div className="min-h-screen flex flex-col">
@@ -104,7 +104,7 @@ const App = () => {
           <Footer />
         </div>
       </BrowserRouter>
-      ){/* } */}
+      {/* } */}
     </>
   );
 };
