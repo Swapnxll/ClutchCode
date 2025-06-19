@@ -25,91 +25,86 @@ import Notfound from "./pages/NotFound";
 import VantaBackground from "./components/VantaBackground";
 import Demo from "./pages/Demo";
 const App = () => {
-  const { isAuth, user, loading } = UserData();
+  const { isAuth, user } = UserData();
+  //const { loading } = UserData();
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <Loading />
-      ) : (
-        <BrowserRouter>
-          <VantaBackground />
-          <div className="min-h-screen flex flex-col">
-            <Header isAuth={isAuth} />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/about" element={<About />} />
-                <Route path="/" element={<Home user={user} />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/sheet" element={isAuth ? <Sheet /> : <Login />} />
-                <Route path="/login" element={isAuth ? <Home /> : <Login />} />
-                <Route path="/demo" element={<Demo />} />
-                <Route
-                  path="/register"
-                  element={isAuth ? <Home /> : <Register />}
-                />
-                <Route
-                  path="/verify"
-                  element={isAuth ? <Home /> : <Verify />}
-                />
-                <Route
-                  path="/account"
-                  element={isAuth ? <Account user={user} /> : <Login />}
-                />
-                <Route
-                  path="/courses/:id"
-                  element={
-                    isAuth ? <CourseDescription user={user} /> : <Login />
-                  }
-                />
-                <Route
-                  path="/payment-success/:id"
-                  element={isAuth ? <PaymentSuccess user={user} /> : <Login />}
-                />
-                <Route
-                  path="/:id/dashboard"
-                  element={isAuth ? <Dashboard user={user} /> : <Login />}
-                />
-                <Route
-                  path="/course/study/:id"
-                  element={isAuth ? <CourseStudy user={user} /> : <Login />}
-                />
-                <Route
-                  path="/lectures/:id"
-                  element={isAuth ? <Lecture user={user} /> : <Login />}
-                />
-                <Route
-                  path="/admin/dashboard"
-                  element={
-                    isAuth && user.role == "admin" ? <Admin /> : <Home />
-                  }
-                />
-                <Route
-                  path="/admin/create"
-                  element={
-                    isAuth && user.role == "admin" ? (
-                      <AdminCourses user={user} />
-                    ) : (
-                      <Home />
-                    )
-                  }
-                />
-                <Route
-                  path="/admin/edit/:id"
-                  element={
-                    isAuth && user.role == "admin" ? (
-                      <CourseEdit user={user} />
-                    ) : (
-                      <Home />
-                    )
-                  }
-                />
-                <Route path="*" element={<Notfound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      )}
+      ) :  */}
+      (
+      <BrowserRouter>
+        <VantaBackground />
+        <div className="min-h-screen flex flex-col">
+          <Header isAuth={isAuth} />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/about" element={<About />} />
+              <Route path="/" element={<Home user={user} />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/sheet" element={isAuth ? <Sheet /> : <Login />} />
+              <Route path="/login" element={isAuth ? <Home /> : <Login />} />
+              <Route path="/demo" element={<Demo />} />
+              <Route
+                path="/register"
+                element={isAuth ? <Home /> : <Register />}
+              />
+              <Route path="/verify" element={isAuth ? <Home /> : <Verify />} />
+              <Route
+                path="/account"
+                element={isAuth ? <Account user={user} /> : <Login />}
+              />
+              <Route
+                path="/courses/:id"
+                element={isAuth ? <CourseDescription user={user} /> : <Login />}
+              />
+              <Route
+                path="/payment-success/:id"
+                element={isAuth ? <PaymentSuccess user={user} /> : <Login />}
+              />
+              <Route
+                path="/:id/dashboard"
+                element={isAuth ? <Dashboard user={user} /> : <Login />}
+              />
+              <Route
+                path="/course/study/:id"
+                element={isAuth ? <CourseStudy user={user} /> : <Login />}
+              />
+              <Route
+                path="/lectures/:id"
+                element={isAuth ? <Lecture user={user} /> : <Login />}
+              />
+              <Route
+                path="/admin/dashboard"
+                element={isAuth && user.role == "admin" ? <Admin /> : <Home />}
+              />
+              <Route
+                path="/admin/create"
+                element={
+                  isAuth && user.role == "admin" ? (
+                    <AdminCourses user={user} />
+                  ) : (
+                    <Home />
+                  )
+                }
+              />
+              <Route
+                path="/admin/edit/:id"
+                element={
+                  isAuth && user.role == "admin" ? (
+                    <CourseEdit user={user} />
+                  ) : (
+                    <Home />
+                  )
+                }
+              />
+              <Route path="*" element={<Notfound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+      ){/* } */}
     </>
   );
 };
